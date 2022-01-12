@@ -1,6 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+model User {
+
+  id       String @id @default(uuid())
+  userName String @unique
+  email    String @unique
+  passWord String
+
+}
+
 generator client {
   provider = "prisma-client-js"
 }

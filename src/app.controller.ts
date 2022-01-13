@@ -16,9 +16,16 @@ export class AppController {
   }*/
 
   @Post()
+  async login(): Promise<any> {}
+
+  @Post()
   async signupUser(@Body() userdata: createuser): Promise<createuser> {
     return this.userService.createUser(userdata);
   }
 
-  
+
+
+
+
+
 }

@@ -23,16 +23,16 @@ export class AuthService {
   async login(
     username: Prisma.UserWhereUniqueInput,
   ): Promise<{ access_token: string }> {
-    //Using prisma queries in order to get the username and the password of every
+    //Using prisma queries in order to get the username and the id
     const userName = this.prisma.user.findUnique({
       where: username,
       select: { userName: true },
     });
-    const passWord = this.prisma.user.findUnique({
+    const id = this.prisma.user.findUnique({
       where: username,
-      select: { passWord: true },
+      select: { id: true },
     });
-    const payload = { userName, passWord };
+    const payload = { userName, id };
     return {
       //When it says that a variable of the type{x} is not assignable, make the {x} variable type
       access_token: this.jwtService.sign(payload),

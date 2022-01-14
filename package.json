@@ -26,6 +26,8 @@
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/passport": "^8.1.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/platform-socket.io": "^8.2.5",
+    "@nestjs/websockets": "^8.2.5",
     "@prisma/client": "^3.8.0",
     "hbs": "^4.2.0",
     "passport": "^0.5.2",

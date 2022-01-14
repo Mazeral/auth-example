@@ -32,11 +32,16 @@
       <div class='signup'>
         <form method='post'>
           <label for='chk' aria-hidden='true'>Sign up</label>
-          <input type='text' name='txt' placeholder='User name' required='' />
+          <input
+            type='userName'
+            name='userName'
+            placeholder='User name'
+            required=''
+          />
           <input type='email' name='email' placeholder='Email' required='' />
           <input
-            type='password'
-            name='pswd'
+            type='passWord'
+            name='passWord'
             placeholder='Password'
             required=''
           />
@@ -45,16 +50,22 @@
       </div>
 
       <div class='login'>
-        <form>
+        <form method='post' action='sign-in'>
           <label for='chk' aria-hidden='true'>Login</label>
-          <input type='email' name='email' placeholder='Email' required='' />
           <input
-            type='password'
-            name='pswd'
+            type='userName'
+            name='userName'
+            placeholder='User name'
+            required=''
+          />
+          <input
+            type='passWord'
+            name='passWord'
             placeholder='Password'
             required=''
           />
-          <button>Login</button>
+          <a href='chat'>
+            <button>Login</button></a>
         </form>
       </div>
     </div>

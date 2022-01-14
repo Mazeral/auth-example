@@ -15,28 +15,12 @@ export class AppController {
     private readonly userService: UserService,
     private authService: AuthService,
   ) {}
-  @Get()
-  @Render('index')
-  root() {}
+} 
 
-  //people should enter the chit chat if and only if they have a token
 
-  @UseGuards(JwtAuthGuard)
-  @Get('chit-chat')
-  @Render('chat')
-  @UseGuards(LocalAuthGuard) //LocalAuthGuard is a class that was created in auth file in order to avoid magical strings, its used for defining what strategy we are using from passportjs for the Post() request and the login function as well, when it works, it will generate a token for the user in order to go the chat page
-  @Post('sign-in')
-  async login(
-    username: Prisma.UserWhereUniqueInput,
-  ): Promise<{ access_token: string }> {
-    return this.authService.login(username);
-  }
+//LocalAuthGuard is a class that was created in auth file in order to avoid magical strings, its used for defining what strategy we are using from passportjs for the Post() request and the login function as well, when it works, it will generate a token for the user in order to go the chat page
 
-  @Post()
-  async signupUser(@Body() userdata: createuser): Promise<createuser> {
-    return this.userService.createUser(userdata);
-  }
-}
+
 
 /***@Post()
 async create(@Body() createuserdto: createuser): Promise<void> {

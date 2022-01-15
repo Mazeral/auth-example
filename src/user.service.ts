@@ -34,6 +34,13 @@ export class UserService {
       orderBy,
     });*/
 
+  //This function was added in order to make passing a username with the type string instead of type UserWhereUniqueInpt possible and it worked.
+  findSpecificUser(userName: string): Prisma.UserWhereUniqueInput {
+    return Prisma.validator<Prisma.UserWhereUniqueInput>()({
+      userName,
+    });
+  }
+
   async user(
     //Search a user by a unique value, username in out case:
     userWhereUniqueInput: Prisma.UserWhereUniqueInput, //the red one can be named anything, the yellow one is the type

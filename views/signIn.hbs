@@ -6,10 +6,15 @@
     <title>Register</title>
   </head>
   <body><h1>
-    <h1>Login</h1>
+      <h1>Login</h1>
       <form action='/signIn.hbs' method='post'>
         <div><label for='userName'>userName</label>
-          <input type='text' id='userName' name='userName' required />
+          <input
+            type='Prisma.UserWhereUniqueInput'
+            id='userName'
+            name='userName'
+            required
+          />
         </div>
         <div><label for='password'>password</label>
           <input type='text' id='passWord' name='passWord' required />

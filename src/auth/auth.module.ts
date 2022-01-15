@@ -5,6 +5,7 @@ import { LocalStrategy } from './local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { PrismaModule } from 'src/prisma.module';
+import { UserModule } from 'src/user.module';
 @Module({
   providers: [AuthService, LocalStrategy, JwtStrategy], //the services
   imports: [
@@ -16,6 +17,7 @@ import { PrismaModule } from 'src/prisma.module';
     }),
     AuthModule,
     PrismaModule,
+    UserModule,
   ], //passport js module in order to make it work
   //Another thing to note: Prisma module is used here in order to make the thing able to work with PrismaServices, this part is really important!
   exports: [AuthService],

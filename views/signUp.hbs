@@ -6,17 +6,20 @@
     <title>Register</title>
   </head>
   <body><h1>
-    <h1>Login</h1>
-      <form action='/signIn.hbs' method='post'>
+      <h1>Register</h1>
+      <form action='/signUp.hbs' method='post'>
         <div><label for='userName'>userName</label>
           <input type='text' id='userName' name='userName' required />
         </div>
         <div><label for='password'>password</label>
           <input type='text' id='passWord' name='passWord' required />
         </div>
-        <button type='submit'>Login</button>
+        <div><label for='email'>email</label>
+          <input type='text' id='email' name='email' required />
+        </div>
+        <button type='submit'>Register</button>
       </form>
     </h1>
-    <a href='./signUp.hbs'>Register</a>
+    <a href="./signIn.hbs">Login</a>
   </body>
 </html>

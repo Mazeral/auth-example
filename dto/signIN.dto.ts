@@ -1,4 +1,6 @@
+import { Prisma } from "@prisma/client";
+
 export class signIn {
-  email: string;
+  userName: Prisma.UserWhereUniqueInput;
   password: string;
 }

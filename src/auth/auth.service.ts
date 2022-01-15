@@ -2,17 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, PrismaClient, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService, private jwtService: JwtService) {} //THIS LINE MAKES US ABLE TO USER PRISMA QUERIES!
-
+  //const isMatch = await bcrypt.compare(password, hash); : this line is copied from the bcrypt of nestjs, it allow us to compare the hashed password to the password in the database.
   async validateUser(
     username: Prisma.UserWhereUniqueInput,
-    pass: Prisma.UserWhereUniqueInput,
-  ): Promise<any> {
+    pass: string,
+  ): Promise<User | null> {
     const user = await this.prisma.user.findUnique({ where: username });
-    if (user && user.passWord === pass) {
-      const { passWord, ...result } = user;
+    if (user && bcrypt.compare(pass, user.passWord)) {
+      const { ...result } = user;
       return result;
     }
     return null;

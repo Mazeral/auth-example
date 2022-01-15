@@ -12,7 +12,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
   async validate(
     username: Prisma.UserWhereUniqueInput,
-    password: Prisma.UserWhereUniqueInput,
+    password: string,
   ): Promise<User | null> {
     const user = await this.authService.validateUser(username, password);
     if (!user) {

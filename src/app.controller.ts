@@ -28,22 +28,41 @@ export class AppController {
   //Get for index
   @Get()
   @Render('index.hbs')
-  root() {
-    console.log('index.hbs is working');
+  getIndex(@Req() req) {
+    return;
   }
 
   //Get for signUp
   @Get('signUp.hbs')
   @Render('signUp.hbs')
-  signUp() {
-    console.log('signUp appeared');
+  getSignUp(@Req() req) {
+    return req.user;
   }
 
   //Get for signIn
   @Get('signIn.hbs')
   @Render('signIn.hbs')
-  signIn() {
-    console.log('signIn is working');
+  getsignIn(@Req() req) {
+    return req.user;
+  }
+
+  //LocalAuthGuard is a class that was created in auth file in order to avoid magical strings, its used for defining what strategy we are using from passportjs for the Post() request and the login function as well, when it works, it will generate a token for the user in order to go the chat page
+  //Post reqeust for signIn
+  // @UseGuards(LocalAuthGuard) //Guards run before the functions of the HTTP requests,
+  @UseGuards(LocalAuthGuard)
+  @Post('signIn.hbs')
+  @Redirect('chat.hbs')
+  async signInPOST(@Req() req) {
+    console.log(req.user);
+    return this.authService.login(req.user);
+  }
+
+ @UseGuards(JwtAuthGuard)
+  @Get('chat.hbs')
+  @Render('chat.hbs')
+  getProfiel(@Req() req) {
+    console.log(req.user);
+    return req.user;
   }
 
   //Get for chat
@@ -53,28 +72,11 @@ export class AppController {
   /**Post requests! */
   //Post request for signUp
   @Post('signUp.hbs')
-  @Render('signIn.hbs')
+  @Redirect('signIn.hbs')
   async signUpPOST(@Body() signup: createuser): Promise<void> {
     //edited the createUser function in the userService in order to have more control over inputs!
     const password = this.userService.pwdcrpt(signup.passWord);
     //We used await with the password because in order to generate it, we need first to trigger a asynchronic function
     this.userService.createUser(signup.userName, await password, signup.email);
   }
-
-  //Post reqeust for signIn
-  // @UseGuards(LocalAuthGuard) //Guards run before the functions of the HTTP requests,
-  @UseGuards(LocalAuthGuard)
-  @Post('signIn.hbs')
-  @Render('chat.hbs')
-  async signInPOST(@Req() req) {
-    return this.authService.login(req.user);
-  }
 }
-
-//LocalAuthGuard is a class that was created in auth file in order to avoid magical strings, its used for defining what strategy we are using from passportjs for the Post() request and the login function as well, when it works, it will generate a token for the user in order to go the chat page
-
-/***@Post()
-async create(@Body() createuserdto: createuser): Promise<void> {
-  const checking = new check();
-  return checking.work();
-}*/

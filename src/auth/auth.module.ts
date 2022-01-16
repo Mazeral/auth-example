@@ -12,6 +12,7 @@ import { UserModule } from 'src/user.module';
     PassportModule,
     JwtModule.register({
       //In the real project, we want from out token to be stored in ENV var, Insha`a allah it will change soon
+      //The token is saved in ENV varialbe
       secret: process.env.JwtConstants,
       signOptions: { expiresIn: '300s' },
     }),

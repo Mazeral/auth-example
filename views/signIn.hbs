@@ -7,17 +7,17 @@
   </head>
   <body><h1>
       <h1>Login</h1>
-      <form action='/signIn.hbs' method='post'>
-        <div><label for='userName'>userName</label>
-          <input
-            type='Prisma.UserWhereUniqueInput'
-            id='userName'
-            name='userName'
-            required
-          />
+      {{! Turns out that his was the problem all along, enctype wan't x-www-form-urlencoded and made my journey hard af }}
+      <form
+        enctype='application/x-www-form-urlencoded'
+        action='/signIn.hbs'
+        method='post'
+      >
+        <div><label for='username'>userName</label>
+          <input type='text' id='username' name='username' required />
         </div>
         <div><label for='password'>password</label>
-          <input type='text' id='passWord' name='passWord' required />
+          <input type='text' id='password' name='password' required />
         </div>
         <button type='submit'>Login</button>
       </form>

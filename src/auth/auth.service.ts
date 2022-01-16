@@ -7,6 +7,7 @@ import { UserService } from 'src/user.service';
 @Injectable()
 export class AuthService {
   constructor(
+    //Injecting services into the auth.services
     private prisma: PrismaService,
     private jwtService: JwtService,
     private userService: UserService,
@@ -16,7 +17,9 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: this.userService.findSpecificUser(username),
     });
-    if (user && bcrypt.compare(pass, user.passWord)) {
+    const hashedPas = user.passWord
+
+    if (await bcrypt.compare(pass, hashedPas)) {
       const { ...result } = user;
       return result;
     }

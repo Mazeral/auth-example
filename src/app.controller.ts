@@ -5,6 +5,7 @@ import {
   Post,
   Redirect,
   Render,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { createuser } from 'dto/createuser.dto';
@@ -62,11 +63,11 @@ export class AppController {
 
   //Post reqeust for signIn
   // @UseGuards(LocalAuthGuard) //Guards run before the functions of the HTTP requests,
+  @UseGuards(LocalAuthGuard)
   @Post('signIn.hbs')
   @Render('chat.hbs')
-  async signInPOST(@Body() login: signIn): Promise<User> {
-    
-    return this.authService.validateUser(login.userName, login.password);
+  async signInPOST(@Req() req) {
+    return this.authService.login(req.user);
   }
 }
 

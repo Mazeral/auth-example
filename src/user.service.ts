@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
-
+  //Creates a user
   async createUser(
     username: string,
     password: string,
@@ -15,24 +15,6 @@ export class UserService {
       data: { userName: username, email: email, passWord: password },
     });
   }
-
-  /* async users(params: {
-    //parameter option for the search
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.UserWhereUniqueInput;
-    where?: Prisma.UserWhereInput;
-    orderBy?: Prisma.UserOrderByWithRelationInput;
-  }): Promise<User[]> { //Returns an array of users
-    const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.user.findMany({
-      //The function that return the users, depending on the parameters if they exist or not.
-      skip,
-      take,
-      cursor,
-      where,
-      orderBy,
-    });*/
 
   //This function was added in order to make passing a username with the type string instead of type UserWhereUniqueInpt possible and it worked.
   findSpecificUser(userName: string): Prisma.UserWhereUniqueInput {

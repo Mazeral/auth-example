@@ -23,6 +23,12 @@ export class UserService {
     });
   }
 
+  findSpecificId(id: string): Prisma.UserWhereUniqueInput {
+    return Prisma.validator<Prisma.UserWhereUniqueInput>()({
+      id,
+    });
+  }
+
   async user(
     //Search a user by a unique value, username in out case:
     userWhereUniqueInput: Prisma.UserWhereUniqueInput, //the red one can be named anything, the yellow one is the type

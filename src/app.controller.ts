@@ -6,18 +6,16 @@ import {
   Redirect,
   Render,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { createuser } from 'dto/createuser.dto';
-import { AppService, check } from './app.service';
 import { UserService } from './user.service';
-import { AuthGuard } from '@nestjs/passport';
-import { Prisma, prisma, User } from '@prisma/client';
-import { PrismaService } from './prisma.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { signIn } from 'dto/signIN.dto';
+import { userInfo } from 'os';
+import { LoggedInGuard } from './auth/logged-in.guard';
 @Controller()
 export class AppController {
   constructor(
@@ -54,15 +52,14 @@ export class AppController {
   @Redirect('chat.hbs')
   async signInPOST(@Req() req) {
     console.log(req.user);
-    return this.authService.login(req.user);
+   return this.authService.login(req.user);
   }
 
- @UseGuards(JwtAuthGuard)
+  @UseGuards(LoggedInGuard)
   @Get('chat.hbs')
   @Render('chat.hbs')
-  getProfiel(@Req() req) {
-    console.log(req.user);
-    return req.user;
+  getProfiel() {
+    return process.env.JwtConstants;
   }
 
   //Get for chat

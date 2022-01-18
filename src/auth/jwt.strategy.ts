@@ -4,7 +4,6 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -13,11 +12,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
   
-
+  //The payload is of type JSON
   async validate(payload: any) {
-
     //the console log is not working??
-    console.log(payload)
+    console.log(payload);
     return {
       userId: payload['user'],
       username: payload['id'],

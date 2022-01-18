@@ -19,7 +19,7 @@ export class AuthService {
     const hashedPas = user.passWord;
 
     if (await bcrypt.compare(pass, hashedPas)) {
-      const {passWord, ...result } = user;
+      const { passWord, ...result } = user;
       return result;
     }
     return null;
@@ -31,8 +31,6 @@ export class AuthService {
     //Using prisma queries in order to get the username and the id
     //using the queries was a mistake, it was a mistake because the browser was sending an object which is the (result in the result above), it should've been like recieving the object and then taking the values we need
 
-
-
     /* const prismauserName = this.prisma.user.findUnique({
       where: this.userService.findSpecificUser(username),
       select: { userName: true },
@@ -43,8 +41,6 @@ export class AuthService {
     });
 */
 
-
-
     //extracting the userName and the id which they are string from the object!
     const userName: string = username['userName'];
     const id: string = username['id'];
@@ -54,5 +50,10 @@ export class AuthService {
       //When it says that a variable of the type{x} is not assignable, make the {x} variable type
       access_token: this.jwtService.sign(payload),
     };
+  }
+  async userIdHunt(id: string) {
+    return this.prisma.user.findUnique({
+      where: this.userService.findSpecificId(id),
+    });
   }
 }

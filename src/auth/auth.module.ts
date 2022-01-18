@@ -6,10 +6,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { PrismaModule } from 'src/prisma.module';
 import { UserModule } from 'src/user.module';
+import { AuthSerializer } from './serialization.provider';
 @Module({
-  providers: [AuthService, LocalStrategy, JwtStrategy], //the services
+  providers: [AuthService, LocalStrategy, JwtStrategy,AuthSerializer], //the services
   imports: [
-    PassportModule,
+    PassportModule.register({ session: true }),
     JwtModule.register({
       //In the real project, we want from out token to be stored in ENV var, Insha`a allah it will change soon
       //The token is saved in ENV varialbe

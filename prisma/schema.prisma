@@ -3,10 +3,11 @@
 
 model User {
 
-  id       String @id @default(uuid())
-  userName String @unique
-  email    String @unique
-  passWord String
+  id           String  @id @default(uuid())
+  userName     String  @unique
+  email        String  @unique
+  passWord     String
+  refreshtoken String? @unique
 
 }
 

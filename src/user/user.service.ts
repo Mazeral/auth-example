@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from './prisma.service';
+import { PrismaService } from 'src/prisma resources/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 @Injectable()
@@ -42,5 +42,17 @@ export class UserService {
   //using bcrypt to hash the password!
   async pwdcrpt(password: string): Promise<string> {
     return await bcrypt.hashSync(password, 10);
+  }
+
+  /**A function to save the current token in the user model */
+
+  async getUserIfRefreshTokenMatches(refreshToken: string, username: string) {
+    const userToken = this.prisma.user.findUnique({
+      where: this.findSpecificUser(username),
+    });
+
+    if ((await userToken).refreshtoken === refreshToken) {
+      return this.user;
+    } else console.log('tokens are not matched!');
   }
 }

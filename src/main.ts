@@ -7,7 +7,6 @@ import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.use(passport.initialize());
   app.use(
     session({
       secret: process.env.cookieVar, //This is how we access how dotenv variables
@@ -15,6 +14,8 @@ async function bootstrap() {
       cookie: { maxAge: 60 * 60 * 3, httpOnly: true, secure: true },
     }),
   );
+  app.use(passport.initialize());
+  app.use(passport.session())
 
   //This fixed a wierd problem...
   app.useStaticAssets(join(process.cwd(), './public'));

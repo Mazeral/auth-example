@@ -19,34 +19,12 @@ export class UserService {
     });
   }
 
-  findSpecificUserById(id: string): Prisma.UserWhereUniqueInput {
-    return Prisma.validator<Prisma.UserWhereUniqueInput>()({
-      id,
-    });
+  async findUserByUsername(username: string) {
+    return await this.prisma.user.findUnique({ where: { userName: username } });
   }
 
-  findSpecificUserByToken(refreshtoken: string): Prisma.UserWhereUniqueInput {
-    return Prisma.validator<Prisma.UserWhereUniqueInput>()({
-      refreshtoken,
-    });
-  }
-
-  findUserByToken(token: string) {
-    return this.prisma.user.findFirst({
-      where: this.findSpecificUserByToken(token),
-    });
-  }
-
-  findUserByUsername(username: string)   {
-    return this.prisma.user.findUnique({
-      where: this.findSpecificUserByUserName(username),
-    });
-  }
-
-  findUserById(id: string) {
-    return this.prisma.user.findUnique({
-      where: this.findSpecificUserById(id),
-    });
+  async findUserById(id: string) {
+    return await this.prisma.user.findUnique({ where: { id: id } });
   }
 
   //using bcrypt to hash the password!

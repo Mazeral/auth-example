@@ -56,12 +56,10 @@ export class AppController {
 
   @Post('signIn')
   @Redirect('chat')
-  @UseGuards(LoggedInGuard)
   //Body is important to SPECIFY the data sent with the post request
   //The post sends data sent via the form, since the form has multiple values,
   //it sends an object, that's why we have a Body() of type login!
   async postLogin(@Req() req, @Body() userdata: login) {
-    console.log(userdata);
     console.log(req.session);
     //this.auth.validateUser(userdata);
     await this.auth.validateUser(userdata);

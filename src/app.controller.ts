@@ -63,6 +63,7 @@ export class AppController {
     console.log(userdata);
     console.log(req.session);
     //this.auth.validateUser(userdata);
+    this.auth.validateUser(userdata);
     return req.session;
   }
 }

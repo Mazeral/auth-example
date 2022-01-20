@@ -10,10 +10,10 @@
       {{! Turns out that his was the problem all along, enctype wan't x-www-form-urlencoded and made my journey hard af }}
       <form
         enctype='application/x-www-form-urlencoded'
-        action='/signIn.hbs'
+        action='/signIn'
         method='post'
       >
-        <div><label for='username'>userName</label>
+        <div><label for='username'>username</label>
           <input type='text' id='username' name='username' required />
         </div>
         <div><label for='password'>password</label>
@@ -22,6 +22,6 @@
         <button type='submit'>Login</button>
       </form>
     </h1>
-    <a href='./signUp.hbs'>Register</a>
+    <a href='./signUp'>Register</a>
   </body>
 </html>

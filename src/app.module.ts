@@ -1,26 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PrismaService } from './prisma.service';
-import { UserService } from './user.service';
-import { AuthModule } from './auth/auth.module';
 import { PrismaClient } from '@prisma/client';
-import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
+import { AuthModule } from './auth/auth.module';
+import { UserService } from './user/user.service';
+import { PrismaService } from './prisma resources/prisma.service';
+import { UserModule } from './user/user.module';
+import { PrismaModule } from './prisma resources/prisma.module';
+import { AuthService } from './auth/auth.service';
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        ACCESS_TOKEN_SECRET: Joi.string().required(),
-        ACCESS_TOKEN_EXPIRATION: Joi.string().required(),
-        REFRESH_TOKEN_SECRET: Joi.string().required(),
-        REFRESH_TOKEN_EXPIRATION: Joi.string().required(),
-      }),
-    }),
-    AuthModule,
-    PrismaClient,
-  ],
+  imports: [AuthModule, PrismaClient, UserModule, PrismaModule],
   controllers: [AppController],
-  providers: [AppService, UserService, PrismaService],
+  providers: [AppService, UserService, PrismaService, AuthService],
 })
 export class AppModule {}

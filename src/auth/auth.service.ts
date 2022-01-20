@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { UserService } from '../user/user.service';
 import { compare } from 'bcrypt';
+import { login } from 'src/DTO/login.dto';
 @Injectable()
 export class AuthService {
   constructor(private readonly users: UserService) {}
@@ -10,9 +11,13 @@ export class AuthService {
    * after that, if the data matches, we assign the data in the database to the
    * passed data
    */
-  async validateUser(userName: string, password: string) {
-    const foundUser: User = await this.users.findUserByUsername(userName);
-    if (!foundUser || !(await compare(password, foundUser['passWord']))) {
+  async validateUser(userData: login) {
+    console.log(userData.username);
+    const name = userData.username;
+    const pass = userData.password;
+    const foundUser: User = await this.users.findUserByUsername(name);
+    console.log(foundUser);
+    if (!foundUser || !(await compare(pass, foundUser['passWord']))) {
       throw new UnauthorizedException('Incorrect username or password');
     }
     const { passWord, ...result } = foundUser;

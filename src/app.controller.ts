@@ -54,7 +54,13 @@ export class AppController {
 
   @Post('signIn')
   @Redirect('chat')
-  postLogin(@Req() req) {
-    return this.auth.validateUser(req.user);
+  //Body is important to SPECIFY the data sent with the post request
+  async postLogin(
+    @Body('username') username: string,
+    @Body('password') password: string,
+  ) {
+    console.log(username);
+    console.log(password);
+    return this.auth.validateUser(username, password);
   }
 }

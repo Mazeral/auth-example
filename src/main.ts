@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import * as cookieparser from 'cookie-parser';
 
 async function bootstrap() {
   //app.use() MUST BE IN THIS ORDER for cookies to work
@@ -18,7 +19,7 @@ async function bootstrap() {
   );
   app.use(passport.initialize());
   app.use(passport.session());
-
+  app.use(cookieparser());
   //This fixed a wierd problem...
   app.useStaticAssets(join(process.cwd(), './public'));
   app.setBaseViewsDir(join(process.cwd(), './views'));

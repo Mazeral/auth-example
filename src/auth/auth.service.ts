@@ -16,7 +16,7 @@ export class AuthService {
     const name = userData.username;
     const pass = userData.password;
     const foundUser: User = await this.users.findUserByUsername(name);
-    if (!foundUser || !(await compare(pass, foundUser['passWord']))) {
+    if (!foundUser || !( compare(pass, foundUser['passWord']))) {
       throw new UnauthorizedException('Incorrect username or password');
     }
     const { passWord, ...result } = foundUser;

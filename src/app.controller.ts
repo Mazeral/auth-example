@@ -12,7 +12,6 @@ import { LoggedInGuard } from './auth/logged-in.guard';
 import { UserService } from './user/user.service';
 import { User } from '@prisma/client';
 import { AuthService } from './auth/auth.service';
-import console from 'console';
 @Controller()
 export class AppController {
   constructor(

@@ -1,4 +1,4 @@
-FROM node:16.3.2
+FROM node:12
 
 WORKDIR /home/mohamed/Projects/chat-app
 

@@ -1,10 +1,9 @@
-FROM node:12
+FROM node:16
 
 WORKDIR /home/mohamed/Projects/chat-app
 
 
 COPY package*.json ./
-
 RUN npm install
 
 COPY . .

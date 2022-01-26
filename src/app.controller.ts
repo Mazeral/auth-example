@@ -24,7 +24,7 @@ export class AppController {
 
   @Get()
   @Render('index.hbs')
-  getindex() {}
+  getindex() {return null}
 
   @Get('signIn')
   @Render('signIn.hbs')
@@ -41,7 +41,7 @@ export class AppController {
   @UseGuards(LoggedInGuard)
   @Get('chat')
   @Render('chat.hbs')
-  getChat() {}
+  getChat() {return null;}
 
   @Post('signUp')
   @Redirect('signIn')
@@ -61,8 +61,8 @@ export class AppController {
   //it sends an object, that's why we have a Body() of type login!
   async postLogin(@Req() req, @Body() userdata: login) {
     console.log(req.session);
-    //this.auth.validateUser(userdata);
     await this.auth.validateUser(userdata);
     return req.session;
   }
 }
+//this.auth.validateUser(userdata);

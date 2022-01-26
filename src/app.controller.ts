@@ -24,7 +24,9 @@ export class AppController {
 
   @Get()
   @Render('index.hbs')
-  getindex() {return null}
+  getindex() {
+    return null;
+  }
 
   @Get('signIn')
   @Render('signIn.hbs')
@@ -41,7 +43,9 @@ export class AppController {
   @UseGuards(LoggedInGuard)
   @Get('chat')
   @Render('chat.hbs')
-  getChat() {return null;}
+  getChat() {
+    return null;
+  }
 
   @Post('signUp')
   @Redirect('signIn')

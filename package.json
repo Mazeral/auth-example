@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/platform-socket.io": "^8.2.5",
     "@nestjs/websockets": "^8.2.5",
-    "@prisma/client": "^3.8.0",
+    "@prisma/client": "^3.8.1",
     "@types/connect-pg-simple": "^7.0.0",
     "@types/connect-redis": "^0.0.18",
     "@types/express-session": "^1.17.4",

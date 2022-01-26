@@ -16,6 +16,6 @@ import { UserService } from 'src/user/user.service';
       session: true,
     }),
   ],
-  providers: [AuthService, LocalStrategy, AuthSerializer,UserService],
+  providers: [AuthService, LocalStrategy, AuthSerializer, UserService],
 })
 export class AuthModule {}

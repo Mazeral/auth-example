@@ -6,9 +6,7 @@ import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthSerializer extends PassportSerializer {
-  constructor(
-    private readonly user: UserService,
-  ) {
+  constructor(private readonly user: UserService) {
     super();
   }
   serializeUser(user: User, done: (err: Error, user: { id: string }) => void) {

@@ -17,16 +17,19 @@ import { AuthService } from './auth/auth.service';
 import * as RedisStore from 'connect-redis';
 import * as session from 'express-session';
 import * as passport from 'passport';
-import RedisClient from 'redis';
 import { REDIS } from './redis/redis.constants';
-
+import { RedisClientType, RedisModules, RedisScripts } from 'redis';
+import { RedisModule } from './redis/redis.module';
 @Module({
-  imports: [AuthModule, PrismaClient, UserModule, PrismaModule],
+  imports: [AuthModule, PrismaClient, UserModule, PrismaModule, RedisModule],
   controllers: [AppController],
   providers: [AppService, UserService, PrismaService, AuthService, Logger],
 })
 export class AppModule implements NestModule {
-  constructor(@Inject(REDIS) private readonly redis: RedisClient) {}
+  constructor(
+    @Inject(REDIS)
+    private readonly redis: RedisClientType<RedisModules, RedisScripts>,
+  ) {}
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(

@@ -16,14 +16,14 @@ import { PrismaModule } from './prisma resources/prisma.module';
 import { AuthService } from './auth/auth.service';
 import * as RedisStore from 'connect-redis';
 import * as session from 'express-session';
-import { REDIS ,RedisModule} from './redis'
 import * as passport from 'passport';
 import RedisClient from 'redis';
+import { REDIS } from './redis/redis.constants';
 
 @Module({
-  imports: [AuthModule, PrismaClient, UserModule, PrismaModule,RedisModule],
+  imports: [AuthModule, PrismaClient, UserModule, PrismaModule],
   controllers: [AppController],
-  providers: [AppService, UserService, PrismaService, AuthService,Logger],
+  providers: [AppService, UserService, PrismaService, AuthService, Logger],
 })
 export class AppModule implements NestModule {
   constructor(@Inject(REDIS) private readonly redis: RedisClient) {}
@@ -36,12 +36,12 @@ export class AppModule implements NestModule {
             logErrors: true,
           }),
           saveUninitialized: false,
-          secret: 'sup3rs3cr3t',
+          secret: process.env.secret, //Make sure to NOT FORGET how to implement .env varaibles!
           resave: false,
           cookie: {
             sameSite: true,
             httpOnly: false,
-            maxAge: 1000*60*30,
+            maxAge: 1000 * 60 * 30,
           },
         }),
         passport.initialize(),

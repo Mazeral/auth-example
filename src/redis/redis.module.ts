@@ -5,12 +5,9 @@ import * as Redis from 'redis';
 
 import {REDIS} from './redis.constants'
 @Module({
-  providers: [
-    {
-      provide: REDIS,
-      useValue: Redis.createClient({ port: 6379, host: 'localhost' }),
-    },
-  ],
-  exports: [REDIS],
+
+providers:[{provide:REDIS,
+useValue: Redis.createClient({url : process.env.REDIS_URL})}]
+
 })
 export class RedisModule {}

@@ -5,6 +5,8 @@ WORKDIR /home/mohamed/Projects/chat-app
 
 COPY package*.json ./
 RUN npm install
+# RUN npx prisma generate remember to add them to create a working image
+# RUN npx prisma migreate
 
 COPY . .
 

@@ -11,8 +11,8 @@ export class UserService {
     });
   }
 
-  async findUserByUsername(username: string) {
-    return this.prisma.user.findUnique({ where: { userName: username } });
+  async findUserByUsername(username) {
+    return await this.prisma.user.findUnique({ where: { userName: username } });
   }
 
   async findUserById(id: string) {

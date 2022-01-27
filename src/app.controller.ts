@@ -13,6 +13,7 @@ import { UserService } from './user/user.service';
 import { User } from '@prisma/client';
 import { AuthService } from './auth/auth.service';
 import { login } from './DTO/login.dto';
+import { LocalGuard } from './auth/local.guard';
 @Controller()
 export class AppController {
   constructor(
@@ -58,14 +59,18 @@ export class AppController {
     this.userService.createUser(signup.userName, await password, signup.email);
   }
 
+  @UseGuards(LocalGuard)
   @Post('signIn')
   @Redirect('chat')
   //Body is important to SPECIFY the data sent with the post request
   //The post sends data sent via the form, since the form has multiple values,
   //it sends an object, that's why we have a Body() of type login!
-  async postLogin(@Req() req, @Body() userdata: login) {
-    console.log(req.session);
-    await this.auth.validateUser(userdata);
+  async postLogin(@Req() req, @Body() userdata) {
+    // console.log(req.session);
+    // await this.auth.validateUser(userdata);
+    // return req.user;
+    console.log(userdata + `THIS IS USER DATA!!!!!!!!!!!`);
+
     return req.session;
   }
 }

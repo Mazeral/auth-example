@@ -10,9 +10,10 @@ import {
 } from '@nestjs/common';
 import { LoggedInGuard } from './auth/logged-in.guard';
 import { UserService } from './user/user.service';
-import { User } from '@prisma/client';
 import { AuthService } from './auth/auth.service';
 import { login } from './DTO/login.dto';
+import { LocalGuard } from './auth/local.guard';
+import { User } from './user/schemas/user.schema';
 @Controller()
 export class AppController {
   constructor(
@@ -24,7 +25,9 @@ export class AppController {
 
   @Get()
   @Render('index.hbs')
-  getindex() {}
+  getindex() {
+    return null;
+  }
 
   @Get('signIn')
   @Render('signIn.hbs')
@@ -41,28 +44,28 @@ export class AppController {
   @UseGuards(LoggedInGuard)
   @Get('chat')
   @Render('chat.hbs')
-  getChat() {}
+  getChat() {
+    //this is intintional
+  }
 
   @Post('signUp')
   @Redirect('signIn')
   async signUpPOST(@Body() signup: User): Promise<void> {
     //edited the createUser function in the userService in order to have more
     //control over inputs!
-    const password = this.userService.pwdcrpt(signup.passWord);
+    signup.password = await this.userService.hashing(signup.password);
     //We used await with the password because in order to generate it, we need
     //first to trigger a asynchronic function
-    this.userService.createUser(signup.userName, await password, signup.email);
+    this.userService.createUser(signup);
   }
 
+  @UseGuards(LocalGuard)
   @Post('signIn')
   @Redirect('chat')
   //Body is important to SPECIFY the data sent with the post request
   //The post sends data sent via the form, since the form has multiple values,
   //it sends an object, that's why we have a Body() of type login!
   async postLogin(@Req() req, @Body() userdata: login) {
-    console.log(req.session);
-    //this.auth.validateUser(userdata);
-    await this.auth.validateUser(userdata);
     return req.session;
   }
 }

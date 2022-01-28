@@ -4,18 +4,15 @@ import { PassportModule } from '@nestjs/passport';
 
 import { LocalStrategy } from './local.strategy';
 import { AuthSerializer } from './serialization.provider';
-import { PrismaModule } from 'src/prisma resources/prisma.module';
-import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports: [
-    PrismaModule,
-    UserModule,
+  imports: [UserModule,
     PassportModule.register({
       session: true,
     }),
-  ],
-  providers: [AuthService, LocalStrategy, AuthSerializer,UserService],
+  ] ,
+  providers: [AuthService, LocalStrategy, AuthSerializer, UserService ],
 })
 export class AuthModule {}

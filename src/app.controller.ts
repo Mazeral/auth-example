@@ -8,15 +8,16 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
- import { LoggedInGuard } from './auth/logged-in.guard';
-import { UserService } from './user/user.service'; import { AuthService } from './auth/auth.service';
+import { LoggedInGuard } from './auth/logged-in.guard';
+import { UserService } from './user/user.service';
+import { AuthService } from './auth/auth.service';
 import { login } from './DTO/login.dto';
 @Controller()
 export class AppController {
   constructor(
     private readonly userService: UserService,
-    // private readonly auth: AuthService,
-  ) {}
+  ) // private readonly auth: AuthService,
+  {}
 
   /**Controllers for out application! */
 

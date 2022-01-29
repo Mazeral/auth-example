@@ -12,9 +12,12 @@ export class AuthService {
    * passed data
    */
   async validateUser(userData: login) {
-    const foundUser = null
+    const foundUser = null;
     console.log(foundUser);
-    if (!foundUser || !(await compare(userData.password, foundUser['passWord']))) {
+    if (
+      !foundUser ||
+      !(await compare(userData.password, foundUser['passWord']))
+    ) {
       throw new UnauthorizedException('Incorrect username or password');
     }
     const { passWord, ...result } = foundUser;

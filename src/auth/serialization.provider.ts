@@ -1,8 +1,10 @@
+/**Serializer for out cookie! */
+
+
 import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
-import { User } from '@prisma/client';
 import { UserService } from 'src/user/user.service';
-/**Serializer for out cookie! */
+import { User } from 'src/DTO/user.dto';
 
 @Injectable()
 export class AuthSerializer extends PassportSerializer {
@@ -19,7 +21,9 @@ export class AuthSerializer extends PassportSerializer {
     payload: { id: string },
     done: (err: Error, user: Omit<User, 'password'>) => void,
   ) {
-    const user = await this.user.findUserById(payload.id);
-    done(null, user);
+    // to be edited
+    // const user = await this.user.findUserById(payload.id);
+    // done(null, user);
+    return null
   }
 }

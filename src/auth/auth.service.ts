@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { compare } from 'bcrypt';
 import { login } from 'src/DTO/login.dto';
 import { UserService } from 'src/user/user.service';
+import { User } from 'src/DTO/user.dto';
 @Injectable()
 export class AuthService {
   constructor(private readonly user: UserService) {}
@@ -12,12 +12,9 @@ export class AuthService {
    * passed data
    */
   async validateUser(userData: login) {
-    console.log(userData.username);
-    const name = userData.username;
-    const pass = userData.password;
-    const foundUser: User = await this.user.findUserByUsername(name);
+    const foundUser = null
     console.log(foundUser);
-    if (!foundUser || !(await compare(pass, foundUser['passWord']))) {
+    if (!foundUser || !(await compare(userData.password, foundUser['passWord']))) {
       throw new UnauthorizedException('Incorrect username or password');
     }
     const { passWord, ...result } = foundUser;

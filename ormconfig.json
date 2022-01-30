@@ -3,7 +3,7 @@
     "url" : "some url"
       "ssl": true,
   "extra": {
-      "options": "--cluster=chatapp-2822"
+      "options": "somecluster"
     },
     "entities": [
         "dist/**/*.entity{.ts,.js}"

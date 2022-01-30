@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { LoggedInGuard } from './auth/logged-in.guard';
 import { UserService } from './user/user.service';
-import { User } from '@prisma/client';
 import { AuthService } from './auth/auth.service';
 import { login } from './DTO/login.dto';
 import { LocalGuard } from './auth/local.guard';
+import { User } from './user/user.entity';
 @Controller()
 export class AppController {
   constructor(
@@ -53,10 +53,10 @@ export class AppController {
   async signUpPOST(@Body() signup: User): Promise<void> {
     //edited the createUser function in the userService in order to have more
     //control over inputs!
-    const password = this.userService.pwdcrpt(signup.passWord);
+    signup.password  = await this.userService.pwdcrpt(signup.password);
     //We used await with the password because in order to generate it, we need
     //first to trigger a asynchronic function
-    this.userService.createUser(signup.userName, await password, signup.email);
+    this.userService.make(signup);
   }
 
   @UseGuards(LocalGuard)
@@ -65,13 +65,7 @@ export class AppController {
   //Body is important to SPECIFY the data sent with the post request
   //The post sends data sent via the form, since the form has multiple values,
   //it sends an object, that's why we have a Body() of type login!
-  async postLogin(@Req() req, @Body() userdata) {
-    // console.log(req.session);
-    // await this.auth.validateUser(userdata);
-    // return req.user;
-    console.log(userdata + `THIS IS USER DATA!!!!!!!!!!!`);
-
+  async postLogin(@Req() req, @Body() userdata:login) {
     return req.session;
   }
 }
-//this.auth.validateUser(userdata);

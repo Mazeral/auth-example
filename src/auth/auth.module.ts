@@ -4,17 +4,13 @@ import { PassportModule } from '@nestjs/passport';
 
 import { LocalStrategy } from './local.strategy';
 import { AuthSerializer } from './serialization.provider';
-import { PrismaModule } from 'src/prisma resources/prisma.module';
-import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/user/user.entity';
 
 @Module({
   imports: [
-    PrismaModule,
-    UserModule,
-    PassportModule.register({
-      session: true,
-    }),
+    TypeOrmModule.forFeature([User])
   ],
   providers: [AuthService, LocalStrategy, AuthSerializer, UserService],
 })

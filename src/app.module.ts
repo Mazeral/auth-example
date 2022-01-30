@@ -7,12 +7,9 @@ import {
 } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PrismaClient } from '@prisma/client';
 import { AuthModule } from './auth/auth.module';
 import { UserService } from './user/user.service';
-import { PrismaService } from './prisma resources/prisma.service';
 import { UserModule } from './user/user.module';
-import { PrismaModule } from './prisma resources/prisma.module';
 import { AuthService } from './auth/auth.service';
 import * as RedisStore from 'connect-redis';
 import * as session from 'express-session';
@@ -20,10 +17,12 @@ import * as passport from 'passport';
 import { REDIS } from './redis/redis.constants';
 import { RedisClientType, RedisModules, RedisScripts } from 'redis';
 import { RedisModule } from './redis/redis.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user/user.entity';
 @Module({
-  imports: [AuthModule, PrismaClient, UserModule, PrismaModule, RedisModule],
+  imports: [AuthModule, UserModule, RedisModule , TypeOrmModule.forRoot(),TypeOrmModule.forFeature([User])],
   controllers: [AppController],
-  providers: [AppService, UserService, PrismaService, AuthService, Logger],
+  providers: [AppService, UserService , AuthService, Logger],
 })
 export class AppModule implements NestModule {
   constructor(

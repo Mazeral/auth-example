@@ -12,6 +12,7 @@ async function bootstrap() {
   //This fixed a wierd problem...
   app.useStaticAssets(join(process.cwd(), './public'));
   app.setBaseViewsDir(join(process.cwd(), './views'));
+  //the code above fixed a problem
   // app.useStaticAssets(join(__dirname, '..', 'public'));
   // app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');

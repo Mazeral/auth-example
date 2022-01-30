@@ -16,7 +16,7 @@ export class UserService {
     return this.user.save(data);
   }
   //finds a User
-  async findOne(name: string): Promise<User> {
+  async findOne(name: string|number): Promise<User> {
     return this.user.findOne(name);
   }
 

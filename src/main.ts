@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 async function bootstrap() {
   //app.use() MUST BE IN THIS ORDER for cookies to work
-  const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(process.cwd(), './public'));
   app.setBaseViewsDir(join(process.cwd(), './views'));
 

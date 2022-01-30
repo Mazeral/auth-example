@@ -21,15 +21,20 @@ export class UserService {
   }
 
   //using bcrypt to hash the password!
-  async pwdcrpt(password: string): Promise<string> {
-   try {return bcrypt.hashSync(password, 10);}
-   catch(e)
-   {
-     console.log(e.message)
-   }
+  async pwdcrpt(password): Promise<string> {
+    try {
+      return bcrypt.hashSync(password, 10);
+    } catch (e) {
+      throw e.message;
+    }
   }
 
   async findID(id: number) {
     return this.user.findOne(id);
+  }
+
+  async getall():Promise<User[]>
+  {
+    return this.user.find()
   }
 }

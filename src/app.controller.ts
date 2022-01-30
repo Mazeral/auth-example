@@ -31,6 +31,12 @@ export class AppController {
     return req.user;
   }
 
+  @Get('getall')
+  getall()
+  {
+    return this.user.getall()
+  }
+
   @Get('signUp')
   @Render('signUp.hbs')
   getRegister(@Req() req) {
@@ -48,8 +54,12 @@ export class AppController {
   async signUpPOST(@Body() signup: newUser): Promise<void> {
     //edited the createUser function in the userService in order to have more
     //control over inputs!
-    signup.password = await this.user.pwdcrpt(signup.password);
-    this.user.make(signup);
+    try {
+      signup.password = await this.user.pwdcrpt(signup.password);
+      this.user.make(signup);
+    } catch (error) {
+      console.log(error.message);
+    }
 
     //We used await with the password because in order to generate it, we need
     //first to trigger a asynchronic function

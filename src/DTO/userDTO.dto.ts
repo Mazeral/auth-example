@@ -1,7 +1,5 @@
 export class userDTO {
-  userName: string;
-  passWord: string;
-  id: string;
+  username: string;
+  password: string;
   email: string;
-  refreshtoken?: string;
 }

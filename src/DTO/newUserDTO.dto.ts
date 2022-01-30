@@ -1,5 +1,5 @@
 export class newUser {
-  userName: string;
-  passWord: string;
+  username: string;
+  password: string;
   email: string;
 }

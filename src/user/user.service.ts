@@ -1,33 +1,39 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma resources/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
+import { newUser } from 'src/DTO/newUserDTO.dto';
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
-  //Creates a user
-  async createUser(username: string, password: string, email: string) {
-    return this.prisma.user.create({
-      data: { userName: username, email: email, passWord: password },
-    });
-  }
+  //To use typeORM queries we inject the entity file this way:
+  constructor(
+    @InjectRepository(User) private readonly user: Repository<User>,
+  ) {}
 
-  async findUserByUsername(username) {
-    return await this.prisma.user.findUnique({ where: { userName: username } });
+  //creates a new User
+  async make(data: newUser): Promise<User> {
+    return this.user.save(data);
   }
-
-  async findUserById(id: string) {
-    return this.prisma.user.findUnique({ where: { id: id } });
+  //finds a User
+  async findOne(name: string): Promise<User> {
+    return this.user.findOne(name);
   }
 
   //using bcrypt to hash the password!
-  async pwdcrpt(password: string): Promise<string> {
-    return bcrypt.hashSync(password, 10);
+  async pwdcrpt(password): Promise<string> {
+    try {
+      return bcrypt.hashSync(password, 10);
+    } catch (e) {
+      throw e.message;
+    }
+  }
+
+  async findID(id: number) {
+    return this.user.findOne(id);
+  }
+
+  async getall(): Promise<User[]> {
+    return this.user.find();
   }
 }
-
-// //This function was added in order to make passing a username with the type string instead of type UserWhereUniqueInpt possible and it worked.
-// findSpecificUserByUserName(userName: string): Prisma.UserWhereUniqueInput {
-//   return Prisma.validator<Prisma.UserWhereUniqueInput>()({
-//     userName,
-//   });
-// }

@@ -1,11 +1,11 @@
-/**Created this module inorder to fix a problem related to modules. */
-
 import { Module } from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { UserService } from './user.service';
-import { PrismaService } from 'src/prisma resources/prisma.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user.entity';
 @Module({
-  //PrismaService is a provider because user.service uses some functions of prisma
-  providers: [UserService, PrismaService],
-  exports: [UserService],
+  imports: [TypeOrmModule.forFeature([User])],
+  providers: [UserService, Repository],
+  exports: [UserService, Repository],
 })
 export class UserModule {}

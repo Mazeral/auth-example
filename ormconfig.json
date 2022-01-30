@@ -1,6 +1,6 @@
 {
     "type": "cockroachdb",
-    "url" : "some url"
+    "url" : "some url",
       "ssl": true,
   "extra": {
       "options": "somecluster"

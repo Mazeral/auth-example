@@ -6,24 +6,24 @@ import {
   Redirect,
   Render,
   Req,
-  UseGuards,
 } from '@nestjs/common';
-import { LoggedInGuard } from './auth/logged-in.guard';
-import { UserService } from './user/user.service';
-import { AuthService } from './auth/auth.service';
 import { login } from './DTO/login.dto';
+import { UserService } from './user/user.service';
+import { newUser } from './DTO/newUserDTO.dto';
+
 @Controller()
 export class AppController {
   constructor(
-    private readonly userService: UserService,
-  ) // private readonly auth: AuthService,
-  {}
+    private readonly user: UserService, // private readonly auth: AuthService,
+  ) {}
 
   /**Controllers for out application! */
 
   @Get()
   @Render('index.hbs')
-  getindex() {}
+  getindex() {
+    //this is intensional
+  }
 
   @Get('signIn')
   @Render('signIn.hbs')
@@ -37,17 +37,20 @@ export class AppController {
     return req.user;
   }
 
-  // @UseGuards(LoggedInGuard)
   @Get('chat')
   @Render('chat.hbs')
-  getChat() {}
+  getChat() {
+    //this is intentional
+  }
 
   @Post('signUp')
   @Redirect('signIn')
-  async signUpPOST(@Body() signup): Promise<void> {
+  async signUpPOST(@Body() signup: newUser): Promise<void> {
     //edited the createUser function in the userService in order to have more
     //control over inputs!
-    const password = this.userService.pwdcrpt(signup.passWord);
+    signup.password = await this.user.pwdcrpt(signup.password);
+    this.user.make(signup);
+
     //We used await with the password because in order to generate it, we need
     //first to trigger a asynchronic function
   }

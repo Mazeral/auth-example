@@ -16,8 +16,12 @@ export class UserService {
     return this.user.save(data);
   }
   //finds a User
-  async findOne(name: string|number): Promise<User> {
-    return this.user.findOne(name);
+  async findOne(name: string): Promise<User> {
+    return this.user.findOne({ where: { username: name } });
+  }
+  async findOneID(ID:number):Promise<User>
+  {
+    return this.user.findOne({where: { id :ID}})
   }
 
   //using bcrypt to hash the password!
@@ -25,7 +29,7 @@ export class UserService {
     try {
       return bcrypt.hashSync(password, 10);
     } catch (e) {
-      throw e.message;
+      throw console.log(e.message + ' pwdcrypt error');
     }
   }
 

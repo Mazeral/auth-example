@@ -20,9 +20,15 @@ import { RedisModule } from './redis/redis.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
 @Module({
-  imports: [AuthModule, UserModule, RedisModule , TypeOrmModule.forRoot(),TypeOrmModule.forFeature([User])],
+  imports: [
+    AuthModule,
+    UserModule,
+    RedisModule,
+    TypeOrmModule.forRoot(),
+    TypeOrmModule.forFeature([User]),
+  ],
   controllers: [AppController],
-  providers: [AppService, UserService , AuthService, Logger],
+  providers: [AppService, UserService, AuthService, Logger],
 })
 export class AppModule implements NestModule {
   constructor(

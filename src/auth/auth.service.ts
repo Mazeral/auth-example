@@ -11,12 +11,16 @@ export class AuthService {
    * after that, if the data matches, we assign the data in the database to the
    * passed data
    */
-  async validateUser(data:login) {
-    const foundUser: User = await this.user.findOne(data.username);
-    if (!foundUser || !(await compare(data.password, foundUser.password))) {
-      throw new UnauthorizedException('Incorrect username or password');
+  async validateUser(data: login) {
+    try {
+      const foundUser: User = await this.user.findOne(data.username);
+      if (!foundUser || !(await compare(data.password, foundUser.password))) {
+        throw new UnauthorizedException('Incorrect username or password');
+      }
+      const { password, ...result } = foundUser;
+      return result;
+    } catch (error) {
+      throw console.log(error.message + ' Validate User error');
     }
-    const { password, ...result } = foundUser;
-    return result;
   }
 }

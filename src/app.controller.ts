@@ -23,6 +23,11 @@ export class AppController {
 
   /**Controllers for out application! */
 
+  @Get('getall')
+  getall() {
+    return this.userService.getall();
+  }
+
   @Get()
   @Render('index.hbs')
   getindex() {
@@ -53,7 +58,7 @@ export class AppController {
   async signUpPOST(@Body() signup: User): Promise<void> {
     //edited the createUser function in the userService in order to have more
     //control over inputs!
-    signup.password  = await this.userService.pwdcrpt(signup.password);
+    signup.password = await this.userService.pwdcrpt(signup.password);
     //We used await with the password because in order to generate it, we need
     //first to trigger a asynchronic function
     this.userService.make(signup);
@@ -65,7 +70,7 @@ export class AppController {
   //Body is important to SPECIFY the data sent with the post request
   //The post sends data sent via the form, since the form has multiple values,
   //it sends an object, that's why we have a Body() of type login!
-  async postLogin(@Req() req, @Body() userdata:login) {
+  async postLogin(@Req() req, @Body() userdata: login) {
     return req.session;
   }
 }

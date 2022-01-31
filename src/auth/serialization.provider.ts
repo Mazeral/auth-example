@@ -17,7 +17,11 @@ export class AuthSerializer extends PassportSerializer {
     payload: { id: number },
     done: (err: Error, user: Omit<User, 'password'>) => void,
   ) {
-    const user = await this.user.findOne(payload.id);
-    done(null, user);
+    try {
+      const user = await this.user.findOneID(payload.id);
+      done(null, user);
+    } catch (error) {
+      throw console.log(error.message + ' Serialization error');
+    }
   }
 }

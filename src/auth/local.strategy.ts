@@ -17,8 +17,11 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     //return this.authService.validateUser({ email, password });
     //after this, we can make the validateUser in the service have a type
     //of a DTO!
-    const usertest = await this.authService.validateUser({username,password});
-    if (!usertest) throw new UnauthorizedException();
+    const usertest = await this.authService.validateUser({
+      username,
+      password,
+    });
+    if (!usertest) throw new UnauthorizedException('Validate function error');
 
     return usertest;
   }

@@ -46,6 +46,13 @@ export class AppController {
     return req.user;
   }
 
+  @Get('logout')
+  @Render('logout.hbs')
+  logout(@Req() req): void {
+    req.logout()
+    Redirect('')
+  }
+
   @UseGuards(LoggedInGuard)
   @Get('chat')
   @Render('chat.hbs')

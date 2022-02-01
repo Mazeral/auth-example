@@ -19,9 +19,8 @@ export class UserService {
   async findOne(name: string): Promise<User> {
     return this.user.findOne({ where: { username: name } });
   }
-  async findOneID(ID:number):Promise<User>
-  {
-    return this.user.findOne({where: { id :ID}})
+  async findOneID(ID: number): Promise<User> {
+    return this.user.findOne({ where: { id: ID } });
   }
 
   //using bcrypt to hash the password!
